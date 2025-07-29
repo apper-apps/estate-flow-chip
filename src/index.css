@@ -91,3 +91,54 @@
 .property-card:hover {
   transform: translateY(-2px) scale(1.01);
 }
+
+/* Leaflet map styles */
+.leaflet-container {
+  font-family: 'Inter', sans-serif;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+  padding: 0 !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.leaflet-popup-tip {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.custom-property-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-in;
+}
+
+/* Cluster styling */
+.marker-cluster-small {
+  background-color: rgba(44, 95, 45, 0.8) !important;
+}
+
+.marker-cluster-medium {
+  background-color: rgba(44, 95, 45, 0.9) !important;
+}
+
+.marker-cluster-large {
+  background-color: rgba(44, 95, 45, 1) !important;
+}
+
+.marker-cluster {
+  border: 2px solid white !important;
+  border-radius: 50% !important;
+  color: white !important;
+  font-weight: bold !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}

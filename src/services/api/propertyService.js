@@ -95,7 +95,44 @@ class PropertyService {
       (p.type === currentProperty.type || p.city === currentProperty.city)
     );
 
-    return related.slice(0, limit).map(property => ({ ...property }));
+return related.slice(0, limit).map(property => ({ ...property }));
+  }
+
+  async getPropertiesWithCoordinates(filters = {}, searchTerm = "") {
+    const properties = await this.getAll(filters, searchTerm);
+    
+    // Add mock coordinates based on property location
+    // In a real app, this would use a geocoding service
+    return properties.map(property => ({
+      ...property,
+      coordinates: this.getCoordinatesForProperty(property)
+    }));
+  }
+
+  getCoordinatesForProperty(property) {
+    // Mock coordinates for California cities
+    const cityCoordinates = {
+      'Westfield': [34.0522, -118.2437],
+      'San Francisco': [37.7749, -122.4194],
+      'Los Angeles': [34.0522, -118.2437],
+      'Sacramento': [38.5816, -121.4944],
+      'Malibu': [34.0259, -118.7798],
+      'Beverly Hills': [34.0736, -118.4004],
+      'Santa Barbara': [34.4208, -119.6982],
+      'Palo Alto': [37.4419, -122.1430],
+      'San Diego': [32.7157, -117.1611],
+      'Fresno': [36.7378, -119.7871],
+      'Lake Tahoe': [39.0968, -120.0324]
+    };
+
+    const baseCoords = cityCoordinates[property.city] || [34.0522, -118.2437];
+    
+    // Add small random offset to spread properties within city
+    const offset = 0.01;
+    return [
+      baseCoords[0] + (Math.random() - 0.5) * offset,
+      baseCoords[1] + (Math.random() - 0.5) * offset
+    ];
   }
 }
 

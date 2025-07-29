@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Header from "@/components/organisms/Header";
 import FilterSidebar from "@/components/organisms/FilterSidebar";
 import PropertyGrid from "@/components/organisms/PropertyGrid";
+import PropertyMap from "@/components/organisms/PropertyMap";
 import ActiveFilters from "@/components/molecules/ActiveFilters";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
@@ -20,7 +21,7 @@ const Browse = () => {
   const [filteredProperties, setFilteredProperties] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
+const [searchTerm, setSearchTerm] = useState(searchParams.get("search") || "");
   const [view, setView] = useState("grid");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   
@@ -195,7 +196,7 @@ const Browse = () => {
                   </p>
                 </div>
                 
-                {/* Desktop View Toggle */}
+{/* Desktop View Toggle */}
                 <div className="hidden sm:flex items-center space-x-4">
                   <div className="flex items-center space-x-1 bg-gray-100 rounded-lg p-1">
                     <button
@@ -218,6 +219,16 @@ const Browse = () => {
                     >
                       List
                     </button>
+                    <button
+                      onClick={() => handleViewChange("map")}
+                      className={`px-3 py-2 rounded-md transition-all duration-200 ${
+                        view === "map" 
+                          ? "bg-white shadow-sm text-primary-600" 
+                          : "text-gray-600 hover:text-primary-600 hover:bg-white/50"
+                      }`}
+                    >
+                      Map
+                    </button>
                   </div>
                 </div>
               </div>
@@ -230,7 +241,7 @@ const Browse = () => {
               />
             </div>
 
-            {/* Properties Grid/List */}
+{/* Properties Content */}
             {filteredProperties.length === 0 ? (
               <Empty
                 title={searchTerm ? "No properties found for your search" : "No properties match your filters"}
@@ -249,7 +260,11 @@ const Browse = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.3 }}
               >
-                <PropertyGrid properties={filteredProperties} view={view} />
+                {view === "map" ? (
+                  <PropertyMap properties={filteredProperties} />
+                ) : (
+                  <PropertyGrid properties={filteredProperties} view={view} />
+                )}
               </motion.div>
             )}
           </div>
